@@ -23,7 +23,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:background="#dcc18a">
 
         <TextView
@@ -61,13 +61,13 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
             android:gravity="center"
             android:textSize="16dp"
             android:lineSpacingExtra="10dp"

@@ -3,6 +3,7 @@ package com.zj.demo.nestedscrolling
 import android.content.Context
 import android.support.v4.view.NestedScrollingParent2
 import android.support.v4.view.ViewCompat
+import android.support.v4.widget.NestedScrollView
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.widget.LinearLayout
  */
 class MyCoordinatorLayout : LinearLayout, NestedScrollingParent2 {
 
+    lateinit var scrollView: NestedScrollView
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -103,6 +105,23 @@ class MyCoordinatorLayout : LinearLayout, NestedScrollingParent2 {
      * 你可以捕获对内部View的fling事件，如果return true则表示拦截掉内部View的事件。
      */
     override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
-        return false
+        return true
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        scrollView = findViewById(R.id.nestedscrollview)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val scrollViewParams = scrollView.layoutParams
+
+        //设置scrollview的高度为总高度-顶部tab的高度(因为nexus6p有问题, 故先这样写)
+        scrollViewParams.height = measuredHeight + dp2px(context, 25)// - dp2px(context, 50)
+
+        //设置总高度
+        //setMeasuredDimension(measuredWidth, measuredHeight + dp2px(context, 200))
+        //setMeasuredDimension(measuredWidth, getChildAt(0).measuredHeight + getChildAt(1).measuredHeight + scrollViewParams.height)
     }
 }
